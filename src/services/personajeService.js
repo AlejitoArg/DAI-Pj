@@ -23,7 +23,7 @@ export class PersonajeService {
         const response = await pool.request()
             .input('Nombre',sql.VarChar, Nombre)
             .input('Edad',sql.VarChar, Edad)
-            .query(`SELECT * from ${personajeTabla} where Nombre = @nombre && Edad = @Edad`);
+            .query(`SELECT * from ${personajeTabla} where Nombre = @nombre and Edad = @Edad`);
         console.log(response)
 
         return response.recordset[0];
