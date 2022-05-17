@@ -33,7 +33,7 @@ export class PelOserService {
 
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, pelOser?.ID ?? 0)
+            .input('id',sql.Int, pelOser?.ID ?? Math.floor(Math.random()*1000000))
             .input('Titulo',sql.VarChar, pelOser?.Titulo ?? '')
             .input('Imagen',sql.VarChar, pelOser?.Imagen ?? '')
             .input('FechaCreacion',sql.VarChar, pelOser?.FechaCreacion ?? '')

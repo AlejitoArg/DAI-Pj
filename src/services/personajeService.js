@@ -46,7 +46,7 @@ export class PersonajeService {
 
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, personaje?.ID ?? 0)
+            .input('id',sql.Int, personaje?.ID ?? Math.floor(Math.random()*1000000))
             .input('Nombre',sql.VarChar, personaje?.Nombre ?? '')
             .input('Imagen',sql.VarChar, personaje?.Imagen ?? '')
             .input('Edad',sql.VarChar, personaje?.Edad ?? '')
