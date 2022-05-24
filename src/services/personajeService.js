@@ -46,13 +46,12 @@ export class PersonajeService {
 
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, personaje?.ID ?? Math.floor(Math.random()*1000000))
             .input('Nombre',sql.VarChar, personaje?.Nombre ?? '')
             .input('Imagen',sql.VarChar, personaje?.Imagen ?? '')
             .input('Edad',sql.VarChar, personaje?.Edad ?? '')
             .input('Peso',sql.VarChar, personaje?.Peso ?? '')
             .input('Historia',sql.VarChar, personaje?.Historia ?? '')
-            .query(`INSERT INTO ${personajeTabla}(IDpersonaje, Nombre, Imagen, Edad, Peso, Historia) VALUES (@id, @Nombre, @Imagen, @Edad, @Peso, @Historia)`);
+            .query(`INSERT INTO ${personajeTabla}(Nombre, Imagen, Edad, Peso, Historia) VALUES (@Nombre, @Imagen, @Edad, @Peso, @Historia)`);
         console.log(response)
 
         return response.recordset;
@@ -64,12 +63,12 @@ export class PersonajeService {
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('id',sql.Int, id)
-            .input('Nombre',sql.VarChar, personaje?.nombre ?? '')
-            .input('Imagen',sql.VarChar, personaje?.imagen ?? '')
-            .input('Edad',sql.VarChar, personaje?.edad ?? '')
-            .input('Peso',sql.VarChar, personaje?.peso ?? '')
-            .input('Historia',sql.VarChar, personaje?.historia ?? '')
-            .query(`UPDATE Personajes SET IDpersonaje=@id, Nombre = @Nombre, Imagen = @Imagen, Edad = @Edad, Peso = @Peso, Historia = @Historia WHERE id = @Id`);
+            .input('Nombre',sql.VarChar, personaje?.Nombre ?? '')
+            .input('Imagen',sql.VarChar, personaje?.Imagen ?? '')
+            .input('Edad',sql.VarChar, personaje?.Edad ?? '')
+            .input('Peso',sql.VarChar, personaje?.Peso ?? '')
+            .input('Historia',sql.VarChar, personaje?.Historia ?? '')
+            .query(`UPDATE Personajes SET Nombre = @Nombre, Imagen = @Imagen, Edad = @Edad, Peso = @Peso, Historia = @Historia WHERE IDpersonaje = @Id`);
         console.log(response)
 
         return response.recordset;

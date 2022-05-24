@@ -10,6 +10,7 @@ export class PelOserService {
         console.log('This is a function on the service');
 
         const pool = await sql.connect(config);
+        console.log(pelOserTabla)
         const response = await pool.request().query(`SELECT * from ${pelOserTabla}`);
         console.log(response)
 
@@ -33,12 +34,11 @@ export class PelOserService {
 
         const pool = await sql.connect(config);
         const response = await pool.request()
-            .input('id',sql.Int, pelOser?.ID ?? Math.floor(Math.random()*1000000))
             .input('Titulo',sql.VarChar, pelOser?.Titulo ?? '')
             .input('Imagen',sql.VarChar, pelOser?.Imagen ?? '')
             .input('FechaCreacion',sql.VarChar, pelOser?.FechaCreacion ?? '')
             .input('Calificacion',sql.VarChar, pelOser?.Calificacion ?? '')
-            .query(`INSERT INTO ${pelOserTabla}(IDpelOser, Titulo, Imagen, FechaCreacion, Calificacion) VALUES (@id, @Titulo, @Imagen, @FechaCreacion, @Calificacion)`);
+            .query(`INSERT INTO ${pelOserTabla}(Titulo, Imagen, FechaCreacion, Calificacion) VALUES (@Titulo, @Imagen, @FechaCreacion, @Calificacion)`);
         console.log(response)
 
         return response.recordset;
@@ -46,15 +46,16 @@ export class PelOserService {
 
     updatePelOserById = async (id, pelOser) => {
         console.log('This is a function on the service');
-
+        console.log(id)
+        console.log(pelOser)
         const pool = await sql.connect(config);
         const response = await pool.request()
             .input('id',sql.Int, id)
-            .input('Titulo',sql.VarChar, pelOser?.nombre ?? '')
-            .input('Imagen',sql.VarChar, pelOser?.imagen ?? '')
-            .input('FechaCreacion',sql.VarChar, pelOser?.edad ?? '')
-            .input('Calificacion',sql.VarChar, pelOser?.peso ?? '')
-            .query(`UPDATE PelOser SET IDpelOser=@id, Titulo = @Titulo, Imagen = @Imagen, FechaCreacion = @FechaCreacion, Calificacion = @Calificacion WHERE IDpelOser = @Id`);
+            .input('Titulo',sql.VarChar, pelOser?.Imagen ?? '')
+            .input('Imagen',sql.VarChar, pelOser?.Titulo ?? '')
+            .input('FechaCreacion',sql.VarChar, pelOser?.FechaCreacion ?? '')
+            .input('Calificacion',sql.VarChar, pelOser?.Calificacion ?? '')
+            .query(`UPDATE PelOser SET Titulo = @Titulo, Imagen = @Imagen, FechaCreacion = @FechaCreacion, Calificacion = @Calificacion WHERE IDpelOser = @Id`);
         console.log(response)
 
         return response.recordset;

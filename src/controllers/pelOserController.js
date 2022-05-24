@@ -33,7 +33,7 @@ router.put('/:id', async (req, res) => {
   console.log(`Request URL Param: ${req.params.id}`);
   console.log(`This is a put operation`);
 
-  const pelOser = await pelOserService.updatePelOserById(req.body);
+  const pelOser = await pelOserService.updatePelOserById(req.params.id, req.body);
 
   return res.status(200).json(pelOser);
 });

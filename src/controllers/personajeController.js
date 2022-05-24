@@ -12,11 +12,11 @@ router.get('', async (req, res) => {
   let personajes;
 
   if(nombre && edad){
-    personajes = await personajeService.getPersonajeByNameAndAge(nombre, edad);
     console.log("anashe")
+    personajes = await personajeService.getPersonajeByNameAndAge(nombre, edad);
   }else{
-    personajes = await personajeService.getPersonaje();
     console.log("anashen't")
+    personajes = await personajeService.getPersonaje();
   }
 
   return res.status(200).json(personajes);
@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
   console.log(`Request URL Param: ${req.params.id}`);
   console.log(`This is a put operation`);
 
-  const personaje = await personajeService.updatePersonajeById(req.body);
+  const personaje = await personajeService.updatePerosnajeById(req.params.id, req.body);
 
   return res.status(200).json(personaje);
 });
