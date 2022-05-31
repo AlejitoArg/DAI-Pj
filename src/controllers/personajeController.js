@@ -6,14 +6,14 @@ const personajeService = new PersonajeService();
 
 router.get('', async (req, res) => {
   console.log(`This is a get operation`);
-  console.log(req.query.nombre, req.query.edad)
   const nombre = req.query.nombre;
   const edad = req.query.edad;
+  const IDpelOser = req.query.IDpelOser;
   let personajes;
 
-  if(nombre && edad){
+  if(nombre || edad || IDpelOser){
     console.log("anashe")
-    personajes = await personajeService.getPersonajeByNameAndAge(nombre, edad);
+    personajes = await personajeService.getPersonajeByParameter(nombre, edad, IDpelOser);
   }else{
     console.log("anashen't")
     personajes = await personajeService.getPersonaje();

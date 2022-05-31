@@ -16,16 +16,25 @@ export class PersonajeService {
         return response.recordset;
     }
 
-    getPersonajeByNameAndAge = async (Nombre, Edad) => {
+    getPersonajeByParameter = async (Nombre, Edad, IDpelOser) => {
         console.log('This is a function on the service');
         const pool = await sql.connect(config);
+        let q;
+        if(IDpelOser){
+            console.log("IDpelOser:" + IDpelOser)
+            q=`SELECT Personajes.IDpersonaje, Personajes.Nombre, Personajes.Imagen, PelOser.IDpelOser   from Personajes INNER JOIN PerPelOser ON PerPelOser.IDpersonaje = Personajes.IDpersonaje INNER JOIN PelOser ON PerPelOser.IDpelOser = PelOser.IDpelOser WHERE PelOser.IDpelOser=${IDpelOser}`;
+        }else if(Nombre){
+            console.log("Nombre:" + Nombre)
+            q=`SELECT IDpersonaje, Nombre, Imagen from Personajes WHERE Nombre=${Nombre}`;
+        }else{
+            console.log("Edad:" + Edad)
+            q=`SELECT IDpersonaje, Nombre, Imagen from Personajes WHERE Edad=${Edad}`;
+        }
         const response = await pool.request()
-            .input('Nombre',sql.VarChar, Nombre)
-            .input('Edad',sql.VarChar, Edad)
-            .query(`SELECT * from ${personajeTabla} where Nombre = @nombre and Edad = @Edad`);
+            .query(q);
         console.log(response)
 
-        return response.recordset[0];
+        return response.recordset;
     }
 
     getPersonajeById = async (id) => {
