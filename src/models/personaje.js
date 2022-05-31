@@ -5,4 +5,5 @@ export class Personaje {
     Edad;
     Peso;
     Historia;
+    PelOsers = [];
 }

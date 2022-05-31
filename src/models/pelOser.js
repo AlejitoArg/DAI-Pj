@@ -4,4 +4,5 @@ export class PelOser {
     Titulo;
     FechaCreacion;
     Calificacion;
+    Personajes = [];
 }

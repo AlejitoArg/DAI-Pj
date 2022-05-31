@@ -3,6 +3,7 @@ import config from '../../db.js'
 import 'dotenv/config'
 
 const pelOserTabla = process.env.DB_TABLA_PELOSER
+const perPelOserTabla = process.env.DB_TABLA_PERPELOSER
 
 export class PelOserService {
 
@@ -11,7 +12,7 @@ export class PelOserService {
 
         const pool = await sql.connect(config);
         console.log(pelOserTabla)
-        const response = await pool.request().query(`SELECT * from ${pelOserTabla}`);
+        const response = await pool.request().query(`SELECT IDpelOser, Titulo, Imagen from ${pelOserTabla}`);
         console.log(response)
 
         return response.recordset;
@@ -25,8 +26,11 @@ export class PelOserService {
             .input('id',sql.Int, id)
             .query(`SELECT * from ${pelOserTabla} where IDpelOser = @id`);
         console.log(response)
-
-        return response.recordset[0];
+        const response2 = await pool.request()
+            .input('id',sql.Int, id)
+            .query(`SELECT Personajes.IDpersonaje from ${perPelOserTabla} INNER JOIN PelOser ON PerPelOser.IDpelOser = PelOser.IDpelOser INNER JOIN Personajes ON PerPelOser.IDpersonaje = Personajes.IDpersonaje WHERE PelOser.IDpelOser=@id`);
+        response.recordset[0].Personajes = response2.recordset
+            return response.recordset[0];
     }
 
     createPelOser = async (pelOser) => {
