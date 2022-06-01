@@ -1,0 +1,13 @@
+Para la correcta inicializacion del programa se debera crear un archivo llamado ".env" y en este insertar
+
+DB_USER= alumno
+DB_PASSWORD= alumno
+DB_SERVER=A-CEO-05
+DB_NAME=Pj
+DB_TABLA_PERSONAJE=Personajes
+DB_TABLA_PELOSER=PelOser
+DB_TABLA_PERPELOSER=PerPelOser
+AUTH_HS256_KEY=VFBQag==
+ISSUER=http://personaje.ort/
+
+tambien dentro de la terminal se debera insertar npm i para que todos los programas que estos archivos utilizas se descarguen
