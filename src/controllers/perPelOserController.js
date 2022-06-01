@@ -1,56 +1,49 @@
 import { Router } from 'express';
-import { PelOserService } from '../services/pelOserService.js';
+import { PerPelOserService } from '../services/PerpelOserService.js';
 import { Authenticate } from '../common/jwt.strategy.js'
 
 const router = Router();
-const pelOserService = new PelOserService();
+const perPelOserService = new PerPelOserService();
 
 router.get('', Authenticate, async (req, res) => {
   console.log(`This is a get operation`);
-  const titulo = req.query.titulo;
-  const des = req.query.des;
-  let pelOsers;
-  if(titulo){
-    pelOsers = await pelOserService.getPelOserByParameter(titulo);
-  }else{
-    pelOsers = await pelOserService.getPelOser(des);
-  }
-  return res.status(200).json(pelOsers);
+  const perPelOsers = await perPelOserService.getPerPelOser();
+  return res.status(200).json(perPelOsers);
 });
 
 router.get('/:id', Authenticate, async (req, res) => {
   console.log(`Request URL Param: ${req.params.id}`);
   console.log(`This is a get operation`);
 
-  const pelOser = await pelOserService.getPelOserById(req.params.id);
+  const perPelOser = await perPelOserService.getPerPelOserById(req.params.id);
 
-  return res.status(200).json(pelOser);
+  return res.status(200).json(perPelOser);
 });
 
 router.post('', Authenticate, async (req, res) => {
   console.log(`This is a post operation`);
 
-  const pelOser = await pelOserService.createPelOser(req.body);
+  const perPelOser = await perPelOserService.createPerPelOser(req.body);
 
-  return res.status(201).json(pelOser);
+  return res.status(201).json(perPelOser);
 });
 
 router.put('/:id', Authenticate, async (req, res) => {
   console.log(`Request URL Param: ${req.params.id}`);
   console.log(`This is a put operation`);
 
-  const pelOser = await pelOserService.updatePelOserById(req.params.id, req.body);
+  const perPelOser = await perPelOserService.updatePerPelOserById(req.params.id, req.body);
 
-  return res.status(200).json(pelOser);
+  return res.status(200).json(perPelOser);
 });
 
 router.delete('/:id', Authenticate, async (req, res) => {
   console.log(`Request URL Param: ${req.params.id}`);
   console.log(`This is a delete operation`);
 
-  const pelOser = await pelOserService.deletePelOserById(req.params.id);
+  const perPelOser = await perPelOserService.deletePerPelOserById(req.params.id);
 
-  return res.status(200).json(pelOser);
+  return res.status(200).json(perPelOser);
 });
 
 export default router;

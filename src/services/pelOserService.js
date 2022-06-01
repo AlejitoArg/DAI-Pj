@@ -7,14 +7,23 @@ const perPelOserTabla = process.env.DB_TABLA_PERPELOSER
 
 export class PelOserService {
 
-    getPelOser= async () => {
+    getPelOser= async (des) => {
         console.log('This is a function on the service');
 
         const pool = await sql.connect(config);
         console.log(pelOserTabla)
-        const response = await pool.request().query(`SELECT IDpelOser, Titulo, Imagen from ${pelOserTabla}`);
+        const response = await pool.request().query(`SELECT IDpelOser, Titulo, Imagen, FechaCreacion from ${pelOserTabla}`);
         console.log(response)
+        if(des="DESC")return response.recordset.reverse();
+        return response.recordset;
+    }
 
+    getPelOserByParameter= async (Titulo) => {
+        console.log('This is a function on the service');
+
+        const pool = await sql.connect(config);
+        const response = await pool.request().query(`SELECT IDpelOser, Titulo, Imagen, FechaCreacion from ${pelOserTabla} where Titulo='${Titulo}'`);
+        
         return response.recordset;
     }
 

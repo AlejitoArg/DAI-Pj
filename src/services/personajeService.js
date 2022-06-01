@@ -4,6 +4,7 @@ import 'dotenv/config'
 
 const personajeTabla = process.env.DB_TABLA_PERSONAJE
 const perPelOserTabla = process.env.DB_TABLA_PERPELOSER
+const PelOserTabla = process.env.DB_TABLA_PELOSER
 
 export class PersonajeService {
 
@@ -22,13 +23,13 @@ export class PersonajeService {
         let q;
         if(IDpelOser){
             console.log("IDpelOser:" + IDpelOser)
-            q=`SELECT Personajes.IDpersonaje, Personajes.Nombre, Personajes.Imagen, PelOser.IDpelOser   from Personajes INNER JOIN PerPelOser ON PerPelOser.IDpersonaje = Personajes.IDpersonaje INNER JOIN PelOser ON PerPelOser.IDpelOser = PelOser.IDpelOser WHERE PelOser.IDpelOser=${IDpelOser}`;
+            q=`SELECT ${personajeTabla}.IDpersonaje, ${personajeTabla}.Nombre, ${personajeTabla}.Imagen, ${PelOserTabla}.IDpelOser from ${personajeTabla} INNER JOIN ${perPelOserTabla} ON ${perPelOserTabla}.IDpersonaje = ${personajeTabla}.IDpersonaje INNER JOIN ${PelOserTabla} ON ${perPelOserTabla}.IDpelOser = ${PelOserTabla}.IDpelOser WHERE ${PelOserTabla}.IDpelOser=${IDpelOser}`;
         }else if(Nombre){
             console.log("Nombre:" + Nombre)
-            q=`SELECT IDpersonaje, Nombre, Imagen from Personajes WHERE Nombre=${Nombre}`;
+            q=`select Personajes.IDpersonaje, Personajes.Nombre, Personajes.Imagen from ${personajeTabla} where Nombre='${Nombre}'`;
         }else{
             console.log("Edad:" + Edad)
-            q=`SELECT IDpersonaje, Nombre, Imagen from Personajes WHERE Edad=${Edad}`;
+            q=`select Personajes.IDpersonaje, Personajes.Nombre, Personajes.Imagen from ${personajeTabla} where Edad='${Edad}'`;
         }
         const response = await pool.request()
             .query(q);

@@ -26,7 +26,7 @@ export class TokenService {
         },
         process.env.AUTH_HS256_KEY,
         {
-          issuer: "http://personaje.ort/",
+          issuer: process.env.ISSUER,
           subject: userId,
           audience: ["http://localhost/"],
           expiresIn: 60 * 24 * 24,
@@ -36,7 +36,6 @@ export class TokenService {
       console.log(token)
       return token;
     };
-    console.log(getSignedToken());
     return getSignedToken();
   }
 }
