@@ -10,4 +10,22 @@ DB_TABLA_PERPELOSER=PerPelOser
 AUTH_HS256_KEY=VFBQag==
 ISSUER=http://personaje.ort/
 
-tambien dentro de la terminal se debera insertar npm i para que todos los programas que estos archivos utilizas se descarguen
+tambien dentro de la terminal se debera insertar "npm i" para que todos los programas que estos archivos utilizas se descarguen
+
+Tambien se debera iniciar la Base de Datos mediante SQL server y en este crear una base de datos llamada "Pj" ejecutar el archivo llamado BD
+
+Luego, en la terminal donde insertó "npm i", ahora ingrese "npm start" y abraló en postman
+
+Allí en postman ingrese en el link "localhost:5000/token" y luego copie el resultado y peguelo en el apartado de Authorization
+
+Ahora para ejecutarlo tiene cuatro estilos de request diferentes en GET recibira todos los personajes al ingresar "localhost:5000/personaje" y todas las peliculas o series al ingresar "localhost:5000/peloser"
+
+para recibir mas informacion sobre alguna respuesta ingrese "/" y el id del personaje, pelicula o serie que de la quiera obtener la informacion
+
+para ingresar una pelicula o serie deberá tener "localhost:5000/peloser", o si desea ingresar un personaje y en el apartado body/raw/JSON deberá ingresar los datos de la misma sin agregarle el ID
+
+Si desea actualizar una pelicula o serie o personaje debera ingresar en el link "localhost:5000/peloser" para el caso de actualizar una pelicula o serie y el link "localhost:5000/personaje" para actualizar un personaje ingresando en body/raw/JSON los datos nuevos
+
+si desea borrar una pelicula o serie debera ingresar "localhost:5000/peloser/" junto al id de la pelicula o serie y "localhost:5000/personaje/" junto al id del personaje para borrar un personaje
+
+si quiere conectar una pelicula con una serie lo podra hacer de la misma manera mencionada anteriormente pero en cambio, el link debera ser "localhost:5000/perPelOser"
